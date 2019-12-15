@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-header',
@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
     styleUrls: ['./header.component.css']
 })
 export class headerComponent {
+    @Output() pageChange: EventEmitter<String> = new EventEmitter<String>()
 
+    onRecipesClicked() {
+        this.pageChange.emit('recipesPage');
+    }
+
+    onShoppingListClicked() {
+        this.pageChange.emit('shoppingPage');
+    }
 }
