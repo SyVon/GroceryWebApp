@@ -1,5 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
 
 import { AppComponent } from './app.component';
 import { headerComponent } from './header/header.component';
@@ -10,28 +11,23 @@ import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.com
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { DropdownDirective } from './shared/dropdown.directive';
-import { AppRoutingModule } from './app-routing.module';
 import { NoDetailComponent } from './recipes/recipe-list/recipe-item/no-detail/no-detail.component';
 
+const routes: Routes = [
+    {path: '', redirectTo: '/recipes', pathMatch: 'full'},
+    {path: 'recipes', component: RecipesComponent, children: [
+        {path: '', component: NoDetailComponent},
+        {path: ':id', component: RecipeDetailComponent},
+    ]},
+    {path: 'shopping-list', component: ShoppingListComponent, children: [
+        {path: ':id', component: RecipeDetailComponent}
+    ]}
+];
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    headerComponent,
-    ShoppingListComponent,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
-    ShoppingEditComponent,
-    DropdownDirective,
-    NoDetailComponent,
-    
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
-export class AppModule { }
+export class AppRoutingModule {
+
+}

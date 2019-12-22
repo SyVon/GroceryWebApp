@@ -2,14 +2,16 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RecipeService {
     @Output() selectedRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+    @Output() recipeId: EventEmitter<number> = new EventEmitter<number>();
 
-    constructor(private shoppingListService: ShoppingListService) { }
+    constructor(private shoppingListService: ShoppingListService, private route: ActivatedRoute) { }
 
     private recipes: Recipe[] = [
         new Recipe('Pasta', 'Delicious Minestrone pasta', 'https://live.staticflickr.com/448/31618169433_044d86286e_b.jpg', [
@@ -39,4 +41,7 @@ export class RecipeService {
         this.shoppingListService.addIngredients(ingredients);
     }
     
+    getRecipe(id: number){
+        return this.recipes[id];
+    }
 }

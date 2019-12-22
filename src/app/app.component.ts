@@ -7,9 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'courseProject';
-  currentPage = "";
 
-  onPageChange(page) {
-    this.currentPage = page;
-  }
+
+  
 }

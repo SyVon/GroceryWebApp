@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -8,11 +9,13 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class headerComponent {
     @Output() pageChange: EventEmitter<String> = new EventEmitter<String>()
 
+    constructor(private router: Router) { }
     onRecipesClicked() {
-        this.pageChange.emit('recipesPage');
+        this.router.navigate(['/recipes']);
     }
 
     onShoppingListClicked() {
-        this.pageChange.emit('shoppingPage');
+        this.router.navigate(['/shopping-list']);
+    
     }
 }
