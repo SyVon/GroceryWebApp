@@ -1,15 +1,16 @@
-import { Injectable, EventEmitter, Output } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RecipeService {
-    @Output() selectedRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
-    @Output() recipeId: EventEmitter<number> = new EventEmitter<number>();
+    // @Output() selectedRecipe: Subject<Recipe> = new Subject<Recipe>();
+    // @Output() recipeId: EventEmitter<number> = new EventEmitter<number>();
 
     constructor(private shoppingListService: ShoppingListService, private route: ActivatedRoute) { }
 
@@ -33,9 +34,7 @@ export class RecipeService {
         this.recipes.push(recipe);
     }
 
-    onChangeRecipeSelected(recipe: Recipe) {
-        this.selectedRecipe.emit(recipe);
-    }
+
 
     addIngredientsToShoppingList(ingredients: Ingredient[]) {
         this.shoppingListService.addIngredients(ingredients);

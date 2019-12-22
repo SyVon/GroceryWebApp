@@ -12,16 +12,20 @@ import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-it
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { NoDetailComponent } from './recipes/recipe-list/recipe-item/no-detail/no-detail.component';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 
 const routes: Routes = [
     {path: '', redirectTo: '/recipes', pathMatch: 'full'},
     {path: 'recipes', component: RecipesComponent, children: [
         {path: '', component: NoDetailComponent},
+        {path: 'new', component: RecipeEditComponent},
         {path: ':id', component: RecipeDetailComponent},
+        {path: ':id/edit', component: RecipeEditComponent},
+        
     ]},
     {path: 'shopping-list', component: ShoppingListComponent, children: [
         {path: ':id', component: RecipeDetailComponent}
-    ]}
+    ]},
 ];
 
 @NgModule({
