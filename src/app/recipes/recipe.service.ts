@@ -15,18 +15,21 @@ export class RecipeService {
 
     constructor(private shoppingListService: ShoppingListService, private route: ActivatedRoute) { }
 
-    private recipes: Recipe[] = [
-        new Recipe('Pasta', 'Delicious Minestrone pasta', 'https://live.staticflickr.com/448/31618169433_044d86286e_b.jpg', [
-            new Ingredient('pasta', 2),
-            new Ingredient('lemon', 3),
-            new Ingredient('sauce', 1)
-        ]),
-        new Recipe('Apricot Cookie', 'Apricot filled cookie', 'https://cdn.pixabay.com/photo/2016/01/14/18/21/pie-1140530_960_720.jpg', [
-            new Ingredient('dough', 2),
-            new Ingredient('apricots', 3),
-            new Ingredient('sugar', 1)
-        ])
-      ];
+    // private recipes: Recipe[] = [
+    //     new Recipe('Pasta', 'Delicious Minestrone pasta', 'https://live.staticflickr.com/448/31618169433_044d86286e_b.jpg', [
+    //         new Ingredient('pasta', 2),
+    //         new Ingredient('lemon', 3),
+    //         new Ingredient('sauce', 1)
+    //     ]),
+    //     new Recipe('Apricot Cookie', 'Apricot filled cookie', 'https://cdn.pixabay.com/photo/2016/01/14/18/21/pie-1140530_960_720.jpg', [
+    //         new Ingredient('dough', 2),
+    //         new Ingredient('apricots', 3),
+    //         new Ingredient('sugar', 1)
+    //     ])
+    //   ];
+
+    private recipes: Recipe[] = [];
+    
     getRecipes() {
         return this.recipes.slice();
     }
@@ -51,6 +54,11 @@ export class RecipeService {
 
     deleteRecipe(index: number) {
         this.recipes.splice(index, 1);
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
         this.recipesChanged.next(this.recipes.slice());
     }
 

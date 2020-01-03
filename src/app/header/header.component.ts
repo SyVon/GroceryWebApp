@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
     selector: 'app-header',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
 export class headerComponent {
     @Output() pageChange: EventEmitter<String> = new EventEmitter<String>()
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private dataStoreService: DataStorageService) { }
+
     onRecipesClicked() {
         this.router.navigate(['/recipes']);
     }
@@ -17,5 +19,13 @@ export class headerComponent {
     onShoppingListClicked() {
         this.router.navigate(['/shopping-list']);
     
+    }
+
+    onSaveData() {
+        this.dataStoreService.storeRecipes();
+    }
+
+    onFetchData() {
+        this.dataStoreService.fetchRecipes().subscribe();
     }
 }
