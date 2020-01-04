@@ -14,10 +14,12 @@ import { DropdownDirective } from './shared/dropdown.directive';
 import { NoDetailComponent } from './recipes/recipe-list/recipe-item/no-detail/no-detail.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipeResolverService } from './recipes/recipes-resolver.service';
+import { AuthComponent } from './auth/auth.component';
+import { AuthGaurd } from './auth/auth.guard';
 
 const routes: Routes = [
     {path: '', redirectTo: '/recipes', pathMatch: 'full'},
-    {path: 'recipes', component: RecipesComponent, children: [
+    {path: 'recipes', component: RecipesComponent, canActivate: [AuthGaurd],children: [
         {path: '', component: NoDetailComponent},
         {path: 'new', component: RecipeEditComponent},
         {path: ':id', component: RecipeDetailComponent, resolve: [RecipeResolverService]},
@@ -27,6 +29,7 @@ const routes: Routes = [
     {path: 'shopping-list', component: ShoppingListComponent, children: [
         {path: ':id', component: RecipeDetailComponent}
     ]},
+    {path: 'auth', component: AuthComponent}
 ];
 
 @NgModule({
